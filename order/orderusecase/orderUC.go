@@ -1,7 +1,6 @@
 package orderusecase
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/evrintobing17/model"
@@ -107,11 +106,7 @@ func (o *OrderUC) UpdateOrderByID(req interface{}, updateData map[string]interfa
 		return nil, err
 	}
 
-	fmt.Println(request,"data pasti")
-	fmt.Println(request[0],"data pasti")
-	// fmt.Println(request[1],"data pasti")
 	for _, item := range request {
-		fmt.Println(item,"data jelas")
 		itemID, _ := strconv.Atoi(item.ItemID)
 		items := model.Items{
 			ItemID:      itemID,
