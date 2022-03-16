@@ -1,4 +1,6 @@
-CREATE SCHEMA orders;
+CREATE DATABASE orders_by;
+
+CREATE IF NOT EXISTS SCHEMA orders;
 
 CREATE SEQUENCE IF NOT EXISTS orders.orders_id_seq;
 
