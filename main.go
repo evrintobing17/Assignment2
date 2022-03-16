@@ -7,6 +7,10 @@ import (
 	"os"
 	"strconv"
 
+	docs "github.com/evrintobing17/docs"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
 	orderDelivery "github.com/evrintobing17/order/orderdelivery"
 	orderRepository "github.com/evrintobing17/order/orderrepository"
 	orderUC "github.com/evrintobing17/order/orderusecase"
@@ -62,13 +66,14 @@ func run() {
 	orderRepo := orderRepository.NewOrderRepository(DB)
 
 	orderUC := orderUC.NewOrderUsecase(orderRepo)
+	docs.SwaggerInfo.BasePath = ""
 
 	r := gin.New()
 	orderDelivery.NewHttpDelivery(r, orderUC)
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	fmt.Println("Listening to port 8081")
 	log.Fatal(http.ListenAndServe("localhost:8081", r))
-
 }
 
 func main() {

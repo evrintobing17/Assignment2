@@ -1,0 +1,146 @@
+definitions:
+  orderdelivery.GetAllOrderResponse:
+    items:
+      $ref: '#/definitions/orderdelivery.Orders'
+    type: array
+  orderdelivery.Items:
+    properties:
+      description:
+        example: Car
+        type: string
+      itemCode:
+        example: "123"
+        type: string
+      quantity:
+        example: "2"
+        type: string
+    type: object
+  orderdelivery.Orders:
+    properties:
+      customerName:
+        example: George
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/orderdelivery.Items'
+        type: array
+      orderedAt:
+        example: "2019-11-09T21:21:46Z"
+        type: string
+    type: object
+  orderdelivery.UpdateItems:
+    properties:
+      description:
+        example: Car
+        type: string
+      itemCode:
+        example: "123"
+        type: string
+      lineItemId:
+        example: "12"
+        type: string
+      quantity:
+        example: "2"
+        type: string
+    type: object
+  orderdelivery.UpdateOrder:
+    properties:
+      customerName:
+        example: George
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/orderdelivery.UpdateItems'
+        type: array
+      orderedAt:
+        example: "2019-11-09T21:21:46Z"
+        type: string
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /orders:
+    get:
+      consumes:
+      - application/json
+      description: Show all order
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderdelivery.GetAllOrderResponse'
+      summary: Show all order
+      tags:
+      - orders
+    post:
+      consumes:
+      - application/json
+      description: Add new order
+      parameters:
+      - description: Create Order
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/orderdelivery.Orders'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Add new order
+      tags:
+      - orders
+  /orders/{orderId}:
+    delete:
+      consumes:
+      - application/json
+      description: delete order by id
+      parameters:
+      - description: orderId
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: delete order
+      tags:
+      - orders
+    put:
+      consumes:
+      - application/json
+      description: Update Order Data
+      parameters:
+      - description: orderId
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Order
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/orderdelivery.UpdateOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update Order
+      tags:
+      - orders
+swagger: "2.0"
